@@ -7,14 +7,14 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class AuthService {
   authToken: any;
   user: any;
-  API_URL = 'https://pgappointments-api.herokuapp.com/';
+  API_URL = 'http://localhost:3000/api/';
   constructor(private http: HttpClient) {}
 
   authenticateUser(user): any {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http
-      .post(this.API_URL + 'users/authenticate', user, {
+      .post(this.API_URL + 'Users/login', user, {
         headers: headers
       })
       .pipe(map(res => res));
@@ -28,8 +28,26 @@ export class AuthService {
       .pipe(map(res => res));
   }
 
-  getProfile(username): any {
-    return this.http.get(this.API_URL + 'users/profile/' + username).pipe(map(res => res));
+  getProfile(token, userId): any {
+    this.loadToken();
+    const headers = new HttpHeaders({
+      Authorization: token,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http
+      .get(this.API_URL + 'Users/' + userId, { headers: headers })
+      .pipe(map(res => res));
+  }
+
+  getCategories(): any {
+    this.loadToken();
+    const headers = new HttpHeaders({
+      Authorization: this.authToken,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.get(this.API_URL + 'Categories').pipe(map(res => res));
   }
 
   storeUserData(token, user) {
@@ -50,7 +68,7 @@ export class AuthService {
   }
 
   loggedIn() {
-    return tokenNotExpired('id_token');
+    return localStorage.getItem('id_token') !== null;
   }
 
   logout() {

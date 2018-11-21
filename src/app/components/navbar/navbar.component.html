@@ -14,9 +14,6 @@
 
   <div id="navbarBasicExample" class="navbar-menu" [class.is-active]="mobileMenuVisible">
     <div class="navbar-end">
-      <a class="navbar-item" *ngIf="authService.loggedIn()" [routerLink]="['/profile/', authService.getUser().username]">
-        Profile
-      </a>
       <a class="navbar-item" [routerLink]="['/about']">
         About
       </a>

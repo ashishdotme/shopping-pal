@@ -36,9 +36,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginInProgress = true;
     this.authService.authenticateUser(loginValue).subscribe(data => {
       this.loginInProgress = false;
-      if (data.success) {
-        this.authService.storeUserData(data.token, data.user);
-        this.router.navigate(['home']);
+      if (data.userId) {
+        this.authService.getProfile(data.id, data.userId).subscribe(value => {
+          this.authService.storeUserData(data.id, value);
+          this.router.navigate(['home']);
+        });
       } else {
         this.showLoginError = !data.success;
       }

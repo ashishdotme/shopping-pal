@@ -10,14 +10,21 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   user: any = {};
-  appointments: any[];
+  categories: any[];
   placeholderString = 'Select timezone';
   timezone: any;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.getCategories();
     this.user = this.authService.getUser();
     console.log(this.user);
+  }
+
+  getCategories() {
+    this.authService.getCategories().subscribe(data => {
+      this.categories = data;
+    });
   }
 }
