@@ -46,8 +46,31 @@ export class AuthService {
       Authorization: this.authToken,
       'Content-Type': 'application/json'
     });
-
     return this.http.get(this.API_URL + 'Categories').pipe(map(res => res));
+  }
+
+  postCategory(category): any {
+    this.loadToken();
+    const headers = new HttpHeaders({
+      Authorization: this.authToken,
+      'Content-Type': 'application/json'
+    });
+    return this.http
+      .post(this.API_URL + 'Categories', category, { headers: headers })
+      .pipe(map(res => res));
+  }
+
+  deleteCategory(id) {
+    this.loadToken();
+    const headers = new HttpHeaders({
+      Authorization: this.authToken,
+      'Content-Type': 'application/json'
+    });
+    return this.http
+      .delete(this.API_URL + 'Categories/' + id, {
+        headers: headers
+      })
+      .pipe(map(res => res));
   }
 
   storeUserData(token, user) {
