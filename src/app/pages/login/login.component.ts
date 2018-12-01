@@ -47,17 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  signup(signupValue: SignupValue): void {
-    this.signupInProgress = true;
-    this.authService.registerUser(signupValue).subscribe(data => {
-      this.signupInProgress = false;
-      if (data.success) {
-        this.showToggle();
-      } else {
-        this.showLoginError = !data.success;
-      }
-    });
-  }
+  signup(signupValue: SignupValue): void {}
 
   showToggle() {
     if (this.showScreen.login) {
