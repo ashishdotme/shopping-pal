@@ -20,26 +20,6 @@ export class AuthService {
       .pipe(map(res => res));
   }
 
-  registerUser(user): any {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    return this.http
-      .post(this.API_URL + 'users/register', user, { headers: headers })
-      .pipe(map(res => res));
-  }
-
-  getProfile(token, userId): any {
-    this.loadToken();
-    const headers = new HttpHeaders({
-      Authorization: token,
-      'Content-Type': 'application/json'
-    });
-
-    return this.http
-      .get(this.API_URL + 'Users/' + userId, { headers: headers })
-      .pipe(map(res => res));
-  }
-
   getCategories(): any {
     this.loadToken();
     const headers = new HttpHeaders({
