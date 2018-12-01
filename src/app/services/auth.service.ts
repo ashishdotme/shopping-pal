@@ -7,7 +7,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class AuthService {
   authToken: any;
   user: any;
-  API_URL = 'http://localhost:3000/api/';
+  API_URL = 'https://stark-temple-11768.herokuapp.com/api/';
   constructor(private http: HttpClient) {}
 
   authenticateUser(user): any {
